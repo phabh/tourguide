@@ -17,3 +17,8 @@ app.init();
 //https://developers.google.com/places/web-service/supported_types
 
 
+//Autocomplete
+//https://developers.google.com/places/web-service/autocomplete
+
+//Place Details
+//https://developers.google.com/places/web-service/details
