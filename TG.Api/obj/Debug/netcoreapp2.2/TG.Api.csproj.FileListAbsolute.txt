@@ -1,0 +1,14 @@
+D:\tourguide\tourguide\TG.Api\bin\Debug\netcoreapp2.2\TG.Api.deps.json
+D:\tourguide\tourguide\TG.Api\bin\Debug\netcoreapp2.2\TG.Api.runtimeconfig.json
+D:\tourguide\tourguide\TG.Api\bin\Debug\netcoreapp2.2\TG.Api.runtimeconfig.dev.json
+D:\tourguide\tourguide\TG.Api\bin\Debug\netcoreapp2.2\TG.Api.dll
+D:\tourguide\tourguide\TG.Api\bin\Debug\netcoreapp2.2\TG.Api.pdb
+D:\tourguide\tourguide\TG.Api\obj\Debug\netcoreapp2.2\TG.Api.csprojAssemblyReference.cache
+D:\tourguide\tourguide\TG.Api\obj\Debug\netcoreapp2.2\TG.Api.csproj.CoreCompileInputs.cache
+D:\tourguide\tourguide\TG.Api\obj\Debug\netcoreapp2.2\TG.Api.RazorAssemblyInfo.cache
+D:\tourguide\tourguide\TG.Api\obj\Debug\netcoreapp2.2\TG.Api.RazorAssemblyInfo.cs
+D:\tourguide\tourguide\TG.Api\obj\Debug\netcoreapp2.2\TG.Api.AssemblyInfoInputs.cache
+D:\tourguide\tourguide\TG.Api\obj\Debug\netcoreapp2.2\TG.Api.AssemblyInfo.cs
+D:\tourguide\tourguide\TG.Api\obj\Debug\netcoreapp2.2\TG.Api.RazorTargetAssemblyInfo.cache
+D:\tourguide\tourguide\TG.Api\obj\Debug\netcoreapp2.2\TG.Api.dll
+D:\tourguide\tourguide\TG.Api\obj\Debug\netcoreapp2.2\TG.Api.pdb
