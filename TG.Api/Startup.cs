@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RestEase;
+using TG.Api.Interfaces;
+using TG.Api.Interfaces.Clients;
+using TG.Api.Services;
 
 namespace TG.Api
 {
@@ -24,6 +28,10 @@ namespace TG.Api
         {
             services
                 .AddHealthChecks();
+
+            services
+                .AddSingleton(RestClient.For<IGoogleMapsClient>("https://maps.googleapis.com/maps/api/"))
+                .AddSingleton<IMapsService, GoogleMapsService>();
 
             services
                 .AddMvc()
