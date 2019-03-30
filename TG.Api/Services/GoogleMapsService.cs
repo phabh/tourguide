@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using TG.Api.Enums;
 using TG.Api.Interfaces;
 using TG.Api.Interfaces.Clients;
 using TG.Api.Models;
@@ -35,5 +36,23 @@ namespace TG.Api.Services
                 return null;
             }
         }
+
+        public async Task<Result[]> GetEstablishmentsAsync(string location, PlaceType placeType)
+        {
+            try
+            {
+                var result = await _googleMapsClient.FindNearbyPlaces(location, 20000, placeType.ToString(), KEY);
+
+                if (!string.Equals(result.Status, "ok", StringComparison.InvariantCultureIgnoreCase) || result?.Results?.Length == 0)
+                {
+                    return null;
+                }
+
+                return result.Results;
+            }
+            catch
+            {
+                return null;
+            }
     }
 }
