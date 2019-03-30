@@ -1,5 +1,8 @@
 var app = require('./services/appservice');
-require('./controllers/root');
+
+[
+    "root"
+].forEach(c => require(`./controllers/${c}`))
 
 app.init();
 
