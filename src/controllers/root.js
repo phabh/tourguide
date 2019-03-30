@@ -1,6 +1,5 @@
-var app = require('../services/appservice');
-var newApp = app.getApp();
+var app = require('../services/appservice').get();
 
-newApp.get('/', function (req, res) {
+app.get('/', function (req, res) {
     res.send('Hello World!');
 });
