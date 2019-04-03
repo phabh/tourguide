@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using TG.Api.Enums;
 using TG.Api.Interfaces;
@@ -54,5 +55,25 @@ namespace TG.Api.Services
             {
                 return null;
             }
+        }
+
+        public async Task<bool> IsOpenedAtDate(DateTime date, string placeId)
+        {
+            try
+            {
+                var result = await _googleMapsClient.GetPlaceDetails(placeId, "opening_hours", KEY);
+
+                if (!string.Equals(result.Status, "ok", StringComparison.InvariantCultureIgnoreCase) || result?.Result?.OpeningHours?.Periods?.Length == 0)
+                {
+                    return false;
+                }
+
+                return result.Result.OpeningHours.Periods.Any(d => d.Open.Day == (long)date.DayOfWeek);
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

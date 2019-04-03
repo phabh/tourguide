@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using TG.Api.Enums;
 using TG.Api.Models;
 
@@ -9,5 +10,7 @@ namespace TG.Api.Interfaces
         Task<Candidate> GetPlacesResultAsync(string location, string filter);
 
         Task<Result[]> GetEstablishmentsAsync(string location, PlaceType placeType);
+
+        Task<bool> IsOpenedAtDate(DateTime date, string placeId);
     }
 }

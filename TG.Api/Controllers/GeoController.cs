@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using TG.Api.Enums;
@@ -43,13 +45,14 @@ namespace TG.Api.Controllers
         }
 
         [HttpGet, Route("place/find")]
-        public async Task<IActionResult> FindPlacesAsync([FromQuery] string geoLocation, [FromQuery] string date, [FromQuery] string price)
+        public async Task<IActionResult> FindPlacesAsync([FromQuery] string geoLocation, [FromQuery] string date, [FromQuery] int price)
         {
-            var allResults = new Dictionary<PlaceType, Result[]>();
-            
+            var allResults = new Dictionary<PlaceType, IEnumerable<Result>>();
+            var realPlan = new List<Result>();
+
             foreach (var plan in TravelPlan)
             {
-                Result[] results;
+                IEnumerable<Result> results;
 
                 if (allResults.ContainsKey(plan))
                 {
@@ -58,16 +61,36 @@ namespace TG.Api.Controllers
                 else
                 {
                     results = await _mapsService.GetEstablishmentsAsync(geoLocation, plan);
+
+                    if (results is null)
+                    {
+                        return BadRequest();
+                    }
+
                     allResults.Add(plan, results);
                 }
 
+                var newResults = results.Where(r => r.PriceLevel < price);
 
+                if (!newResults.Any())
+                {
+                    newResults = results;
+                }
+
+                if (!DateTime.TryParse(date, out var datee))
+                {
+                    return BadRequest();
+                }
+
+                var correct = newResults.FirstOrDefault(async r => await _mapsService.IsOpenedAtDate(datee, r.PlaceId));
+
+                if (correct == default)
+                {
+                    correct = newResults.FirstOrDefault();
+                }
             }
-            // Para cada travel plan -->
-            //     Pega dados e poe no dicionario
-            //     Faz match por preço e data e tira do dicionario
-            //     Adiciona ao travel guide
-            // Retorna
+
+            return Ok(realPlan);
         }
     }
 }
