@@ -32,7 +32,7 @@ namespace TG.Api.Services
 
                 return result.Candidates[0];
             }
-            catch
+            catch (Exception e)
             {
                 return null;
             }
@@ -42,7 +42,7 @@ namespace TG.Api.Services
         {
             try
             {
-                var result = await _googleMapsClient.FindNearbyPlaces(location, 20000, placeType.ToString(), KEY);
+                var result = await _googleMapsClient.FindNearbyPlaces(location, 20000, placeType.ToString().ToLowerInvariant(), KEY);
 
                 if (!string.Equals(result.Status, "ok", StringComparison.InvariantCultureIgnoreCase) || result?.Results?.Length == 0)
                 {
@@ -51,7 +51,7 @@ namespace TG.Api.Services
 
                 return result.Results;
             }
-            catch
+            catch (Exception e)
             {
                 return null;
             }

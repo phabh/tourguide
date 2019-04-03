@@ -70,27 +70,45 @@ namespace TG.Api.Controllers
                     allResults.Add(plan, results);
                 }
 
-                var newResults = results.Where(r => r.PriceLevel < price);
-
-                if (!newResults.Any())
-                {
-                    newResults = results;
-                }
-
                 if (!DateTime.TryParse(date, out var datee))
                 {
                     return BadRequest();
                 }
 
-                var correct = newResults.FirstOrDefault(async r => await _mapsService.IsOpenedAtDate(datee, r.PlaceId));
+                var correct = await FirstOrDefaultAsync(results, async r =>
+                {
+                    if (r.PriceLevel == price)
+                    {
+                        return await _mapsService.IsOpenedAtDate(datee, r.PlaceId);
+                    }
 
+                    return false;
+                });
+                
                 if (correct == default)
                 {
-                    correct = newResults.FirstOrDefault();
+                    correct = results.FirstOrDefault();
                 }
+
+                allResults[plan] = allResults[plan].Where(r => r.Id != correct.Id);
+
+                realPlan.Add(correct);
             }
 
             return Ok(realPlan);
+        }
+
+        private async Task<T> FirstOrDefaultAsync<T>(IEnumerable<T> source, Func<T, Task<bool>> predicate)
+        {
+            foreach (var i in source)
+            {
+                if (await predicate(i))
+                {
+                    return i;
+                }
+            }
+
+            return default;
         }
     }
 }

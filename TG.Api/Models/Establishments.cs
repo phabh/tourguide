@@ -21,7 +21,7 @@ namespace TG.Api.Models
         public string PlaceId { get; set; }
 
         [JsonProperty("rating")]
-        public int Rating { get; set; }
+        public double Rating { get; set; }
 
         [JsonProperty("geometry")]
         public Geometry Geometry { get; set; }
