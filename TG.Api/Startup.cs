@@ -9,12 +9,16 @@ using RestEase;
 using TG.Api.Interfaces;
 using TG.Api.Interfaces.Clients;
 using TG.Api.Services;
+using Swashbuckle.AspNetCore.Swagger;
+using System.Reflection;
 
 namespace TG.Api
 {
     public class Startup
     {
         private const string HealthEndpoint = "/health";
+        private string AppName { get; } = Assembly.GetExecutingAssembly().GetName().Name;
+        private const string CurrentVersion = "v1";
 
         public Startup(IConfiguration configuration)
         {
@@ -37,6 +41,11 @@ namespace TG.Api
                 .AddMvc()
                 .AddJsonOptions(o => JsonNetSerializer.Settings.Converters.ForEach(c => o.SerializerSettings.Converters.Add(c)))
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Tourguide API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +65,13 @@ namespace TG.Api
 
             app.UseHealthChecks(HealthEndpoint)
                 .UseMvc();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.RoutePrefix = string.Empty;
+                c.SwaggerEndpoint("./swagger/v1/swagger.json", $"{AppName} {CurrentVersion}");
+            });
         }
     }
 }
