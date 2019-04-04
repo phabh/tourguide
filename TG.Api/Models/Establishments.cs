@@ -33,6 +33,6 @@ namespace TG.Api.Models
         [JsonProperty("user_ratings_total")]
         public int UserRatingsTotal { get; set; }
 
-        public PlaceType PlaceType { get; set; }
+        public int Skip { get; set; }
     }
 }

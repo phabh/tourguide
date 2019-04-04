@@ -37,6 +37,8 @@ namespace TG.Api
                 .AddSingleton(RestClient.For<IGoogleMapsClient>("https://maps.googleapis.com/maps/api/"))
                 .AddSingleton<IMapsService, GoogleMapsService>();
 
+            services.AddMemoryCache();
+
             services
                 .AddMvc()
                 .AddJsonOptions(o => JsonNetSerializer.Settings.Converters.ForEach(c => o.SerializerSettings.Converters.Add(c)))
