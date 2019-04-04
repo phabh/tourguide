@@ -4,5 +4,15 @@
         <name>TG.Api</name>
     </assembly>
     <members>
+        <member name="M:TG.Api.Controllers.GeoController.FindPlaceAsync(System.String,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Returns the results for an specified type - coffe, PointOfInterestMorning, Lunch, PointOfInterestAfternoom, Dinner
+            </summary>
+            <param name="geolocation"></param>
+            <param name="date"></param>
+            <param name="price"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

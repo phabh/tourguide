@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using TG.Api.Enums;
 
 namespace TG.Api.Models
 {
@@ -31,5 +32,7 @@ namespace TG.Api.Models
 
         [JsonProperty("user_ratings_total")]
         public int UserRatingsTotal { get; set; }
+
+        public PlaceType PlaceType { get; set; }
     }
 }

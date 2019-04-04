@@ -9,7 +9,7 @@ namespace TG.Api.Interfaces
     {
         Task<Candidate> GetPlacesResultAsync(string location, string filter);
 
-        Task<Result[]> GetEstablishmentsAsync(string location, PlaceType placeType);
+        Task<Result[]> GetEstablishmentsAsync(string location, string keyWord, string minprice, string maxprice);
 
         Task<bool> IsOpenedAtDate(DateTime date, string placeId);
     }

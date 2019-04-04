@@ -2,8 +2,9 @@
 {
     public enum PlaceType
     {
-        Cafe,
-        Point_Of_Interest,
-        Restaurant
+        Coffee,
+        PointOfInterest,
+        Lunch,
+        Dinner
     }
 }

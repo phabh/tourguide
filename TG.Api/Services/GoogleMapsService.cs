@@ -11,6 +11,8 @@ namespace TG.Api.Services
     public class GoogleMapsService : IMapsService
     {
         private const string KEY = "AIzaSyDIPN1WOrn8WeATWKKmFTlQLuulgqX3jO4";
+        private const string MIN = "0";
+        private const string MAX = "4";
 
         private readonly IGoogleMapsClient _googleMapsClient;
 
@@ -38,11 +40,11 @@ namespace TG.Api.Services
             }
         }
 
-        public async Task<Result[]> GetEstablishmentsAsync(string location, PlaceType placeType)
+        public async Task<Result[]> GetEstablishmentsAsync(string location, string keyWord, string minprice, string maxprice)
         {
             try
             {
-                var result = await _googleMapsClient.FindNearbyPlaces(location, 20000, placeType.ToString().ToLowerInvariant(), KEY);
+                var result = await _googleMapsClient.FindNearbyPlaces(location, 20000, keyWord, minprice, maxprice, KEY);
 
                 if (!string.Equals(result.Status, "ok", StringComparison.InvariantCultureIgnoreCase) || result?.Results?.Length == 0)
                 {
