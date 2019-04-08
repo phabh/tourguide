@@ -58,30 +58,28 @@ namespace TG.Api.Controllers
         {
             try
             {
-                var results = new List<Result>();
                 var dateTime = Convert.ToDateTime(date);
                 string[] keyWordList;
                 keyWords.TryGetValue((PlaceType)Enum.Parse(typeof(PlaceType), type, true), out keyWordList);
 
-                for (int i = 0; i < keyWordList.Length; i++)
-                {
-                    var response = await _mapsService.GetEstablishmentsAsync(geolocation, keyWordList[i], minprice, maxprice);
-                    if (response == null) continue;
-                    results.AddRange(response);
-                }
+                var list = keyWordList.ToList();
+
+                var tmpResult = await Task.WhenAll(list.Select(it => _mapsService.GetEstablishmentsAsync(geolocation, it, minprice, maxprice)));
+                tmpResult = tmpResult.Where(it => it != null).ToArray();
+                var results = tmpResult.SelectMany(it => it).ToList();
 
                 if (!results.Any())
                 {
                     return NoContent();
                 }
 
-                foreach (Result result in results.Skip(skip))
+                foreach (Result res in results.Skip(skip))
                 {
-                    bool isOpened = await _mapsService.IsOpenedAtDate(dateTime, result.PlaceId);
+                    bool isOpened = await _mapsService.IsOpenedAtDate(dateTime, res.PlaceId);
                     if (isOpened)
                     {
-                        result.Skip = results.IndexOf(result);
-                        return Ok(result);
+                        res.Skip = results.IndexOf(res);
+                        return Ok(res);
                     }
                 }
 
