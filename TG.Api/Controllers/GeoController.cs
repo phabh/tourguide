@@ -16,8 +16,9 @@ namespace TG.Api.Controllers
         private readonly Dictionary<PlaceType, string[]> keyWords = new Dictionary<PlaceType, string[]>
         {
             { PlaceType.Coffee, new [] { "coffee" } },
-            { PlaceType.PointOfInterest, new [] { "museum", "park" } },
-            { PlaceType.Lunch, new [] { "lunch", "restaurant" } }
+            { PlaceType.PointOfInterest, new [] { "museum", "park", "" } },
+            { PlaceType.Lunch, new [] { "lunch", "restaurant" } },
+            { PlaceType.Dinner, new [] { "dinner", "restaurant" } }
         };
 
         private readonly IMapsService _mapsService;
@@ -43,13 +44,15 @@ namespace TG.Api.Controllers
         }
 
         /// <summary>
-        /// Returns the results for an specified type - coffe, PointOfInterest, Lunch, Dinner
+        /// Returns the results for an specified type - coffe, PointOfInterest, Lunch, Dinner.
         /// </summary>
-        /// <param name="geolocation"></param>
-        /// <param name="date"></param>
-        /// <param name="price"></param>
-        /// <param name="type"></param>
-        /// <returns></returns>
+        /// <param name="geolocation">The coordinates in google maps format </param>
+        /// <param name="date">Day of tourguide - dd/mm/yyyy </param>
+        /// <param name="minprice">The minimum price that the user wants to pay, 0 (cheapest) - 4 (most expensive)</param>
+        /// <param name="maxprice">The minimum price that the user wants to pay, 0 (cheapest) - 4 (most expensive)</param>
+        /// <param name="type">The type of search (Coffee, PointOfInterest, Lunch, Dinner)</param>
+        /// <param name="skip">The index to initialize the search in google results</param>
+        /// <returns>Result with the first valid ocurrence and the skip indicating the index of this ocurrence</returns>
         [HttpGet, Route("place/find/{type}/{skip}")]
         public async Task<IActionResult> FindPlaceAsync([FromQuery] string geolocation, [FromQuery] string date, [FromQuery] string minprice, [FromQuery] string maxprice, [FromRoute] string type, [FromRoute] int skip)
         {
