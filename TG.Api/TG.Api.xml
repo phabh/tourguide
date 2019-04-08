@@ -8,8 +8,8 @@
             <summary>
             Returns the results for an specified type - coffe, PointOfInterest, Lunch, Dinner.
             </summary>
-            <param name="geolocation">The coordinates in google maps format</param>
-            <param name="date">Day of tourguide</param>
+            <param name="geolocation">The coordinates in google maps format </param>
+            <param name="date">Day of tourguide - dd/mm/yyyy </param>
             <param name="minprice">The minimum price that the user wants to pay, 0 (cheapest) - 4 (most expensive)</param>
             <param name="maxprice">The minimum price that the user wants to pay, 0 (cheapest) - 4 (most expensive)</param>
             <param name="type">The type of search (Coffee, PointOfInterest, Lunch, Dinner)</param>

@@ -16,7 +16,7 @@ namespace TG.Api.Controllers
         private readonly Dictionary<PlaceType, string[]> keyWords = new Dictionary<PlaceType, string[]>
         {
             { PlaceType.Coffee, new [] { "coffee" } },
-            { PlaceType.PointOfInterest, new [] { "museum", "park", "" } },
+            { PlaceType.PointOfInterest, new [] { "museum", "park", "exhibition", "waterfall", "statue", "monument", "culture", "lake", "oscar niemeyer", "garden", "zoo", "sunset", "montain", "cavern", "river", "nature reserve" } },
             { PlaceType.Lunch, new [] { "lunch", "restaurant" } },
             { PlaceType.Dinner, new [] { "dinner", "restaurant" } }
         };
