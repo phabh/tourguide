@@ -13,6 +13,10 @@ namespace TG.Api.Interfaces.Clients
         Task<Establishments> FindNearbyPlaces([Query("location")] string location, [Query("radius")] int radius, [Query("keyword")] string keyworkd, [Query("minprice")] string minprice, [Query("maxprice")] string maxprice, [Query("key")] string key);
 
         [Get("/place/details/json")]
+        Task<PlaceDetails> GetPlaceDetails([Query("placeid")] string placeId, [Query("key")] string key);
+
+        [Get("/place/details/json")]
         Task<PlaceDetails> GetPlaceDetails([Query("placeid")] string placeId, [Query("fields")] string fields, [Query("key")] string key);
+
     }
 }

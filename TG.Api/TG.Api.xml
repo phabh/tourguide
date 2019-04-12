@@ -26,5 +26,13 @@
             <param name="maxprice"></param>
             <returns></returns>
         </member>
+        <member name="M:TG.Api.Services.GoogleMapsService.GetPlaceDetailsAsync(System.DateTime,System.String)">
+            <summary>
+            Get name, address, price, rating, time and reviews for a place
+            </summary>
+            <param name="date"></param>
+            <param name="placeId"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

@@ -78,8 +78,9 @@ namespace TG.Api.Controllers
                     bool isOpened = await _mapsService.IsOpenedAtDate(dateTime, res.PlaceId);
                     if (isOpened)
                     {
-                        res.Skip = results.IndexOf(res);
-                        return Ok(res);
+                        var place = await _mapsService.GetPlaceDetailsAsync(dateTime, res.PlaceId);
+                        place.Skip = results.IndexOf(res);
+                        return Ok(place);
                     }
                 }
 

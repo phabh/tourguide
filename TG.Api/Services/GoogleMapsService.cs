@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TG.Api.Enums;
@@ -92,6 +93,72 @@ namespace TG.Api.Services
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Get name, address, price, rating, time and reviews for a place
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="placeId"></param>
+        /// <returns></returns>
+        public async Task<TourguideResponse> GetPlaceDetailsAsync(DateTime date, string placeId)
+        {
+            try
+            {
+                var result = await _googleMapsClient.GetPlaceDetails(placeId, KEY);
+
+                var place = new TourguideResponse
+                {
+                    Name = result.Result.Name,
+                    Address = result.Result.FormattedAddress,
+                    Price = result.Result.PriceLevel.ToString(),
+                    Rating = result.Result.Rating.ToString(),
+                    Time = result.Result.OpeningHours.WeekdayText.Where(it => it.Contains(date.DayOfWeek.ToString())).FirstOrDefault().ToString(),
+                    Review = ExtractReviewsFromResult(result)
+                };
+
+                return place;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private MyReview ExtractReviewsFromResult(PlaceDetails result)
+        {
+            MyReview review = new MyReview()
+            {
+                Comment = "",
+                Rating = 0
+            };
+
+            MyReview greaterReview = new MyReview();
+
+            foreach (Review r in result.Result.Reviews)
+            {
+                var tmpReview = new MyReview
+                {
+                    Comment = r.Text,
+                    Rating = r.Rating
+                };
+
+                if (r.Rating > review.Rating && r.Text.Split().Length > 3)
+                {
+                    review = tmpReview;
+                }
+                else if (r.Text.Split().Length <= 3)
+                {
+                    greaterReview = tmpReview;
+                }
+            }
+
+            if (review.Comment == "")
+            {
+                return greaterReview;
+            }
+
+            return review;
         }
     }
 }

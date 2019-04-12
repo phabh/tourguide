@@ -22,31 +22,4 @@ namespace TG.Api.Models
         [JsonProperty("place_id")]
         public string PlaceId { get; set; }
     }
-
-    public class Geometry
-    {
-        [JsonProperty("location")]
-        public Location Location { get; set; }
-
-        [JsonProperty("viewport")]
-        public Viewport Viewport { get; set; }
-    }
-
-    public class Location
-    {
-        [JsonProperty("lat")]
-        public double Lat { get; set; }
-
-        [JsonProperty("lng")]
-        public double Lng { get; set; }
-    }
-
-    public class Viewport
-    {
-        [JsonProperty("northeast")]
-        public Location Northeast { get; set; }
-
-        [JsonProperty("southwest")]
-        public Location Southwest { get; set; }
-    }
 }

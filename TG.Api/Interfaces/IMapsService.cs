@@ -12,5 +12,7 @@ namespace TG.Api.Interfaces
         Task<Result[]> GetEstablishmentsAsync(string location, string keyWord, string minprice, string maxprice);
 
         Task<bool> IsOpenedAtDate(DateTime date, string placeId);
+
+        Task<TourguideResponse> GetPlaceDetailsAsync(DateTime date, string placeId);
     }
 }
