@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RestEase;
+using Swashbuckle.AspNetCore.Swagger;
+using System.Reflection;
 using TG.Api.Interfaces;
 using TG.Api.Interfaces.Clients;
 using TG.Api.Services;
-using Swashbuckle.AspNetCore.Swagger;
-using System.Reflection;
 
 namespace TG.Api
 {

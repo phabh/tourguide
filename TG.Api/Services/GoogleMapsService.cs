@@ -1,9 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TG.Api.Enums;
 using TG.Api.Interfaces;
 using TG.Api.Interfaces.Clients;
 using TG.Api.Models;
@@ -55,7 +53,7 @@ namespace TG.Api.Services
         {
             try
             {
-                var cacheKey = location.ToString()+keyWord.ToString()+minprice.ToString()+maxprice.ToString();
+                var cacheKey = location.ToString() + keyWord.ToString() + minprice.ToString() + maxprice.ToString();
 
                 var result = await _googleMapsCache.GetOrCreateAsync(cacheKey, entry =>
                 {
@@ -103,33 +101,26 @@ namespace TG.Api.Services
         /// <returns></returns>
         public async Task<TourguideResponse> GetPlaceDetailsAsync(DateTime date, string placeId)
         {
-            try
-            {
-                var result = await _googleMapsClient.GetPlaceDetails(placeId, KEY);
+            var result = await _googleMapsClient.GetPlaceDetails(placeId, KEY);
 
-                var place = new TourguideResponse
-                {
-                    Name = result.Result.Name,
-                    Address = result.Result.FormattedAddress,
-                    Price = result.Result.PriceLevel.ToString(),
-                    Rating = result.Result.Rating.ToString(),
-                    Time = result.Result.OpeningHours.WeekdayText.Where(it => it.Contains(date.DayOfWeek.ToString())).FirstOrDefault().ToString(),
-                    Review = ExtractReviewsFromResult(result)
-                };
-
-                return place;
-            }
-            catch (Exception ex)
+            var place = new TourguideResponse
             {
-                throw ex;
-            }
+                Name = result.Result.Name,
+                Address = result.Result.FormattedAddress,
+                Price = result.Result.PriceLevel.ToString(),
+                Rating = result.Result.Rating.ToString(),
+                Time = result.Result.OpeningHours.WeekdayText.Where(it => it.Contains(date.DayOfWeek.ToString())).FirstOrDefault().ToString(),
+                Review = ExtractReviewsFromResult(result)
+            };
+
+            return place;
         }
 
         private MyReview ExtractReviewsFromResult(PlaceDetails result)
         {
             MyReview review = new MyReview()
             {
-                Comment = "",
+                Comment = string.Empty,
                 Rating = 0
             };
 
@@ -153,7 +144,7 @@ namespace TG.Api.Services
                 }
             }
 
-            if (review.Comment == "")
+            if (review.Comment?.Length == 0)
             {
                 return greaterReview;
             }

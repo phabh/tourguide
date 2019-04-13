@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using TG.Api.Enums;
-
-namespace TG.Api.Models
+﻿namespace TG.Api.Models
 {
     public class Establishments
     {

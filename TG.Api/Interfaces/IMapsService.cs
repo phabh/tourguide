@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using TG.Api.Enums;
 using TG.Api.Models;
 
 namespace TG.Api.Interfaces

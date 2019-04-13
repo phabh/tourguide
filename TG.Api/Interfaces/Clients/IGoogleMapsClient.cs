@@ -17,6 +17,5 @@ namespace TG.Api.Interfaces.Clients
 
         [Get("/place/details/json")]
         Task<PlaceDetails> GetPlaceDetails([Query("placeid")] string placeId, [Query("fields")] string fields, [Query("key")] string key);
-
     }
 }

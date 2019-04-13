@@ -59,8 +59,7 @@ namespace TG.Api.Controllers
             try
             {
                 var dateTime = Convert.ToDateTime(date);
-                string[] keyWordList;
-                keyWords.TryGetValue((PlaceType)Enum.Parse(typeof(PlaceType), type, true), out keyWordList);
+                keyWords.TryGetValue((PlaceType)Enum.Parse(typeof(PlaceType), type, true), out string[] keyWordList);
 
                 var list = keyWordList.ToList();
 
@@ -68,7 +67,7 @@ namespace TG.Api.Controllers
                 tmpResult = tmpResult.Where(it => it != null).ToArray();
                 var results = tmpResult.SelectMany(it => it).ToList();
 
-                if (!results.Any())
+                if (results.Count == 0)
                 {
                     return NoContent();
                 }
@@ -90,19 +89,6 @@ namespace TG.Api.Controllers
             {
                 return BadRequest(ex);
             }
-        }
-
-        private async Task<T> FirstOrDefaultAsync<T>(IEnumerable<T> source, Func<T, Task<bool>> predicate)
-        {
-            foreach (var i in source)
-            {
-                if (await predicate(i))
-                {
-                    return i;
-                }
-            }
-
-            return default;
         }
     }
 }

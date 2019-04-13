@@ -1,9 +1,8 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace TG.Api.Models
 {
-
     public partial class PlaceDetails
     {
         [JsonProperty("html_attributions")]
