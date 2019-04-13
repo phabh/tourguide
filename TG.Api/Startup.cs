@@ -16,7 +16,6 @@ namespace TG.Api
 {
     public class Startup
     {
-        private const string HealthEndpoint = "/health";
         private string AppName { get; } = Assembly.GetExecutingAssembly().GetName().Name;
         private const string CurrentVersion = "v1";
 
@@ -31,9 +30,6 @@ namespace TG.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddHealthChecks();
-
-            services
                 .AddSingleton(RestClient.For<IGoogleMapsClient>("https://maps.googleapis.com/maps/api/"))
                 .AddSingleton<IMapsService, GoogleMapsService>();
 
@@ -42,7 +38,7 @@ namespace TG.Api
             services
                 .AddMvc()
                 .AddJsonOptions(o => JsonNetSerializer.Settings.Converters.ForEach(c => o.SerializerSettings.Converters.Add(c)))
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSwaggerGen(c =>
             {
@@ -65,8 +61,7 @@ namespace TG.Api
                     .UseHttpsRedirection();
             }
 
-            app.UseHealthChecks(HealthEndpoint)
-                .UseMvc();
+            app.UseMvc();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
