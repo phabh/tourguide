@@ -53,7 +53,7 @@ namespace TG.Api.Services
         {
             try
             {
-                var cacheKey = location.ToString() + keyWord.ToString() + minprice.ToString() + maxprice.ToString();
+                var cacheKey = location + keyWord + minprice + maxprice;
 
                 var result = await _googleMapsCache.GetOrCreateAsync(cacheKey, entry =>
                 {
